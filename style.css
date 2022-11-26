@@ -75,8 +75,6 @@ form{
 }
 
 button{
-    height: 15vh;
-    width: 15vh;
     font-size: 5rem;
     border-radius: 5%;
     text-decoration: none;
@@ -88,7 +86,12 @@ button{
     align-items: center;
 }
 
-button:hover{
+#addBtn{
+    height: 15vh;
+    width: 15vh;
+}
+
+#addBtn:hover{
     transform: rotate(90deg);
     color: var(--darkTwo);
     background-color: var(--lightTwo);
@@ -112,17 +115,55 @@ button:hover{
     height: 150px;
     background-color: var(--darkTwo);
     color: var(--darkTwo);
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 40px 1fr 3fr 1fr 1fr;
     justify-content: center;
     align-items: center;
-    font-size: 2.5rem;
     border-radius: 5%;
     text-decoration: none;
-    
+    padding: 5px;
+    text-align: center;
+    position: relative;
+}
+
+.book > * {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.book i{
+    font-size: 2.5rem;
+
 }
 
 
 .active{
     color: var(--lightOne);
+}
+
+.book > .close{
+    font-size: 10px;
+    background-color: var(--darkTwo);
+    width: 15px;
+    height: 15px;
+    color: var(--darkTwo );
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    right: 0%;
+    top: 0%;
+    border-radius: 50%;
+    margin: 2px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.close.active{
+    background-color: var(--lightOne);
+}
+
+.close.active:hover{
+    transform: rotate(90deg);
 }
