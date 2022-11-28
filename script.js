@@ -13,34 +13,28 @@ Book.prototype.info = function(){
 //Variables
 
 const myLibrary = []
-let bookNumber = 0
-
-
+let bookSpace = 0
 
 //Selectors
 
 const addButton = document.querySelector('#addBtn')
-const bookElements = document.querySelectorAll('.book')
+const libraryElement = document.querySelector('.library')
 const inputData = document.querySelectorAll('input')
 const deleteBtns = document.querySelectorAll('.close')
-
-
-console.log(inputData[3].checked)
-console.log(bookElements)
 
 
 //Event listeners
 
 addButton.addEventListener('click', addBook)
-deleteBtns.forEach(deleteBtn => deleteBtn.addEventListener('click', deleteBook))
 
 //Functions
 
 function addBook() {
+    bookSpace = checkEmptySpace()
     const book = createBook()
-    myLibrary.push(book)
+    myLibrary[bookSpace] = book 
     inputData.forEach(data => data.value = '')
-    showBook(myLibrary)
+    showBook(myLibrary, bookSpace)
 }
 
 function createBook(){
@@ -51,33 +45,31 @@ function createBook(){
     newBook.read = inputData[3].checked
     return newBook
 }
-function showLibrary(e){
-    console.log(e.target.getAttribute('value'))
-    console.log(myLibrary)
-}
 
-function showBook(myLibrary){
 
-    bookNumber = checkEmptySpace()
-    const bookElement = bookElements[bookNumber]
-    bookElement.classList.toggle('active')
-
-    bookElement.innerHTML =
-    bookElement.classList.contains('active') ?
+function showBook(myLibrary, bookSpace){
+    const bookElement = document.createElement('div')
     bookElement.innerHTML = 
-    `<i class="fa-solid fa-x close active"></i>
-    <p class="card-title" style="font-size: 0.9rem">${myLibrary[bookNumber].title}</p>
-    <p class="card-title" style="font-size: 0.6rem">${myLibrary[bookNumber].author}</p>
+    `
+    <i class="fa-solid fa-x close active"></i>
+    <p class="card-title" style="font-size: 0.9rem">${myLibrary[bookSpace].title}</p>
+    <p class="card-title" style="font-size: 0.6rem">${myLibrary[bookSpace].author}</p>
     <i class="fa-solid fa-book"></i>
-    <p class="card-title" style="font-size: 0.6rem">Pages: ${myLibrary[bookNumber].pages}</p>
-    <p class="card-read" style="font-size: 0.7rem"> Status: ${myLibrary[bookNumber].read ? 'book read': 'not read'}</p>` 
-    : bookElement.innerHTM = ""
+    <p class="card-title" style="font-size: 0.6rem">Pages: ${myLibrary[bookSpace].pages}</p>
+    <p class="card-read" style="font-size: 0.7rem"> Status: ${myLibrary[bookSpace].read ? 'book read': 'not read'}</p>
+    ` 
+    bookElement.classList.add('active', 'book')
+    bookElement.setAttribute('value', bookSpace)
+    libraryElement.appendChild(bookElement)
+
+    const deleteBtns = document.querySelectorAll('.close')
+    deleteBtns.forEach(deleteBtn => deleteBtn.addEventListener('click', deleteBook))
 
 }
 
 function checkEmptySpace(){
-    if (myLibrary.length != 0 && myLibrary.indexOf('') === -1){
-        return myLibrary.length - 1
+    if (myLibrary.indexOf('') === -1){
+        return myLibrary.length
     }
     else{
         return myLibrary.indexOf('')
@@ -85,9 +77,10 @@ function checkEmptySpace(){
 }
 
 function deleteBook(e){
-    const currentBook = e.target.parentElement.getAttribute('value')
-    console.log(currentBook)
-
+    const selectedBook = e.target.parentElement
+    const indexOfBook = selectedBook.getAttribute('value')
+    selectedBook.remove()
+    myLibrary[indexOfBook] = ''
 }
 
 /*
