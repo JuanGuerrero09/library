@@ -9,7 +9,6 @@ Book.prototype.info = function(){
     return `The ${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? 'book read': 'not read yet'}`
 }
 
-
 //Variables
 
 const myLibrary = []
@@ -21,7 +20,6 @@ const addButton = document.querySelector('#addBtn')
 const libraryElement = document.querySelector('.library')
 const inputData = document.querySelectorAll('input')
 const deleteBtns = document.querySelectorAll('.close')
-
 
 //Event listeners
 
@@ -83,9 +81,3 @@ function deleteBook(e){
     myLibrary[indexOfBook] = ''
 }
 
-/*
-Add a book
-Light the book
-Active press status
-
-*/
